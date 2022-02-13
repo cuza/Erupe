@@ -3,10 +3,10 @@ name: Build and Publish
 on:
   # run it on push to the default repository branch
   push:
-    branches: [master]
+    branches: [release/master]
   # run it during pull request
   pull_request:
-    branches: [master]
+    branches: [release/master]
 
 jobs:
   build-and-push-docker-image:
@@ -55,7 +55,7 @@ jobs:
             ghcr.io/cuza/erupe:${{ steps.date.outputs.date }}
             ghcr.io/cuza/erupe:${{ github.event.head_commit.id }}
           # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/master' }}
+          push: ${{ github.ref == 'refs/heads/release/master' }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
